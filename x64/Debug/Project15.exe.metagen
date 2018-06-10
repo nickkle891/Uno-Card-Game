@@ -27,17 +27,18 @@ Class CCarta: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     getPosX(): PrivateScope, Public, HideBySig
     setPosY(Int32): PrivateScope, Public, HideBySig
     getPosY(): PrivateScope, Public, HideBySig
-    dibujar(Graphics): PrivateScope, Public, HideBySig
+    dibujar(BufferedGraphics): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
 Class CMazo: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-    Void .ctor(System.Drawing.Graphics): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
     System.IDisposable
   Methods:
     shufle(): PrivateScope, Public, HideBySig
-    dibujarmazo(): PrivateScope, Public, HideBySig
+    dibujarmazo(BufferedGraphics): PrivateScope, Public, HideBySig
     repartir(): PrivateScope, Public, HideBySig
     cogercarta(): PrivateScope, Public, HideBySig
+    devolvercarta(): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
 Class Project15.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form

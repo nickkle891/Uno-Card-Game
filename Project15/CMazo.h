@@ -8,14 +8,18 @@ using namespace System::Drawing;
 
 public ref class CMazo {
 private:
-	Graphics ^ canvas;
+	
 	array<CCarta^> ^cartas;
 	int in;
+	bool mazodibujado;
+	int cs;
+	int posAX;
+	int posAY;
 public:
-	CMazo(Graphics^ canvas) {
+	CMazo() {
 		in = 50;
+		mazodibujado = false;
 		cartas = gcnew array<CCarta^>(55);
-		this->canvas= canvas;
 	//Rellenando cartas azules	
 	for (int i = 0; i <= 12; i++) {
 		switch (i+1) {
@@ -96,15 +100,22 @@ public:
 	cartas[54] = gcnew CCarta(5, 0, "imagenes/card_back.png");
 	}
 	void shufle() {	}
-	void dibujarmazo() {
-		
-		for (int i = 0; i <=54; i++) {
-			cartas[i]->setPosX(in);
-			cartas[i]->setPosY(in);
-			cartas[i]->dibujar(canvas);
-			in++;
+	void dibujarmazo(BufferedGraphics ^buffer) {
+		if (mazodibujado == false) {
+			for (int i = 0; i <= 54; i++) {
+				cartas[i]->setPosX(in);
+				cartas[i]->setPosY(in);
+				cartas[i]->dibujar(buffer);
+				in++;
+			}
+			in = 50;
+			mazodibujado = true;
 		}
-		in = 50;
+		else {
+			for (int i = 0; i <= 54; i++) {
+				cartas[i]->dibujar(buffer);
+			}
+		}
 	}
 	~CMazo() {
 		}
@@ -115,11 +126,22 @@ public:
 	void repartir() {};
 	void cogercarta() {
 		int n;
+		n = 300;
 		
-		do {
-			cartas[4]->setPosX(in + n);
-			cartas[4]->dibujar(canvas);
-			n++;
-		} while (n < 300);
+		Random r;
+		cs = r.Next(0, 54);
+		posAX=cartas[cs]->getPosX();
+		posAY = cartas[cs]->getPosY();
+	cartas[cs]->setPosX(in + n);
+	cartas[cs]->setPosY(in);
+	
+			
+	
+		
+	}
+	void devolvercarta() {
+		
+		cartas[cs]->setPosX(posAX);
+		cartas[cs]->setPosY(posAY);
 	};
 };
