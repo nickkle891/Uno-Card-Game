@@ -1,0 +1,4 @@
+﻿  MyForm.cpp
+c:\users\renzo\google drive\upc\ciclo iii\progra 2\project15\project15\cmazo.h(120): warning C4700: uninitialized local variable 'n' used
+  Project15.vcxproj -> C:\Users\Renzo\Google Drive\UPC\Ciclo III\Progra 2\Project15\Debug\Project15.exe
+  Project15.vcxproj -> C:\Users\Renzo\Google Drive\UPC\Ciclo III\Progra 2\Project15\Debug\Project15.pdb (Full PDB)

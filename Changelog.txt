@@ -1,0 +1,27 @@
+8 de junio del 2018
+-9 pm
+*Cambie el nombre y el icono
+++Cree copia de seguridad
+*Cambie la clase carta a public ref carta
+-10:09 pm
+*exploto todo
+*odio mi vida 
+-11:38 pm
+*Arregle todo y ahora las cartas tienen un nuevo valor en protected llamado ruta (no funciona con sring la ptmr)
+*ruta es un string raro llamado ^String y funciona la ruta
+*Mazo no funciona gg (30 min de crisis existencial)
+
+9 de junio del 2018
+*Hize un mazo pequeño en el windows form 
+*prendi a hacer arrays con clase diferenciada
+*cree un array de la clase carta y o grafique
+*????
+-12:55 am
+*Por obra y gracia del señor funciona el mazo chiquito
+*Aplicando lo aprendido en el mazo de verdah
+-2:03 am
+*dejo de funcionar la wea
+*me transforme al islam
+*el koran me dio ayudas
+-2:08 am
+*lo repare ,tengo sueño,no se como lo repare??? gg
