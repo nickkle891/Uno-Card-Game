@@ -21,10 +21,12 @@ namespace Project15 {
 	{
 	private:
 		Graphics^ canvas;
+		BufferedGraphicsContext ^espacioBuffer;
 		
 	private: System::Windows::Forms::Timer^  timer1;
 int n;
-	private: System::Windows::Forms::Button^  button1;
+
+
 			 CMazo^ mazo;
 		
 	public:
@@ -35,8 +37,15 @@ int n;
 			//TODO: agregar código de constructor aquí
 			//
 			canvas = CreateGraphics();
-			mazo = gcnew CMazo(canvas);
+			espacioBuffer = BufferedGraphicsManager::Current;
+			// Creamos un canvas dentro del espacio del buffer utilizando el canvas
+			// del formulario
+			BufferedGraphics ^buffer = espacioBuffer->Allocate(canvas, this->ClientRectangle);
+
+			mazo = gcnew CMazo();
 			n = 0;
+			
+
 			
 			
 		}
@@ -70,29 +79,18 @@ int n;
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// timer1
 			// 
+			this->timer1->Enabled = true;
 			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(660, 164);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(129, 44);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"Coger carta";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1018, 542);
-			this->Controls->Add(this->button1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MyForm";
 			this->Text = L"Uno el juego de cartas mas horrible de programar";
@@ -102,35 +100,33 @@ int n;
 
 		}
 #pragma endregion
-		void dibujarfondo() {
-			Bitmap^ bm_world = gcnew Bitmap("imagenes/esce.jpg");
-			//bm_world->MakeTransparent(bm_world->GetPixel(1, 1));
-			Drawing::Rectangle todaPantalla = Drawing::Rectangle(0, 0, 3100, 1300);
-			canvas->DrawImage(bm_world, todaPantalla, 0, 0, this->Size.Width, this->Size.Height, GraphicsUnit::Pixel);
-			//dibujar mario
-		}
-		void dibujar() {
-			//dibujar fondo
-			dibujarfondo();
-			
-			mazo->dibujarmazo();
+		void dibujarfondo(BufferedGraphics ^buffer) {
 
+			Bitmap^ bm_world = gcnew Bitmap("imagenes/esce.jpg");
+			Drawing::Rectangle todaPantalla = Drawing::Rectangle(0, 0, 3100, 1300);
+			buffer->Graphics->DrawImage(bm_world, todaPantalla, 0, 0, this->Size.Width, this->Size.Height, GraphicsUnit::Pixel);
+			//bm_world->MakeTransparent(bm_world->GetPixel(1, 1));
+		
 		}
+		
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 		
 	}
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
-		dibujar();
-			
-		timer1->Stop();
-		timer1->Enabled = false;
-			
-		mazo->cogercarta();
-		timer1->Stop();
+		Graphics^g= CreateGraphics();
+		BufferedGraphicsContext ^espacioBuffer = BufferedGraphicsManager::Current;
+		BufferedGraphics ^buffer = espacioBuffer->Allocate(g, this->ClientRectangle);
+		dibujarfondo(buffer);
 		
+		mazo->dibujarmazo(buffer);
+
+
+		buffer->Render(g);
+		delete buffer;
+		delete espacioBuffer;  delete g;
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		timer1->Enabled = true;
+		//timer1->Enabled = true;
 	}
 };
 }

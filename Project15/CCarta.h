@@ -35,7 +35,7 @@ public:
 	void setPosY(int posY) { this->posY = posY; }
 	int getPosY() { return this->posY; }
 	
-	void dibujar(Graphics^ canvas) {
+	void dibujar(BufferedGraphics ^buffer) {
 
 		
 		Bitmap^ bm = gcnew Bitmap(ruta);
@@ -46,7 +46,7 @@ public:
 		// Declaramos un rectangulo con las dimensiones del pedazo del sprite a utilizar  
 		Rectangle porcionAUsar = Rectangle(0, 0, anchoImagen, altoImagen);
 		// Dibujamos la imagen en la posicion 50, 50
-		canvas->DrawImage(bm, posX, posY, porcionAUsar, GraphicsUnit::Pixel);
+		buffer->Graphics->DrawImage(bm, posX, posY, porcionAUsar, GraphicsUnit::Pixel);
 	}
 
 

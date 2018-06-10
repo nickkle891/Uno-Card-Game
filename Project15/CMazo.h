@@ -8,14 +8,13 @@ using namespace System::Drawing;
 
 public ref class CMazo {
 private:
-	Graphics ^ canvas;
+	
 	array<CCarta^> ^cartas;
 	int in;
 public:
-	CMazo(Graphics^ canvas) {
+	CMazo() {
 		in = 50;
 		cartas = gcnew array<CCarta^>(55);
-		this->canvas= canvas;
 	//Rellenando cartas azules	
 	for (int i = 0; i <= 12; i++) {
 		switch (i+1) {
@@ -96,12 +95,12 @@ public:
 	cartas[54] = gcnew CCarta(5, 0, "imagenes/card_back.png");
 	}
 	void shufle() {	}
-	void dibujarmazo() {
+	void dibujarmazo(BufferedGraphics ^buffer) {
 		
 		for (int i = 0; i <=54; i++) {
 			cartas[i]->setPosX(in);
 			cartas[i]->setPosY(in);
-			cartas[i]->dibujar(canvas);
+			cartas[i]->dibujar(buffer);
 			in++;
 		}
 		in = 50;
@@ -113,12 +112,12 @@ public:
 	//int getCantidad() { return this->cantidad; }
 	
 	void repartir() {};
-	void cogercarta() {
+	void cogercarta(BufferedGraphics ^buffer) {
 		int n;
 		
 		do {
 			cartas[4]->setPosX(in + n);
-			cartas[4]->dibujar(canvas);
+			cartas[4]->dibujar(buffer);
 			n++;
 		} while (n < 300);
 	};
