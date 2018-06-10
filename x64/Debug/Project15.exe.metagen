@@ -37,7 +37,8 @@ Class CMazo: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     shufle(): PrivateScope, Public, HideBySig
     dibujarmazo(BufferedGraphics): PrivateScope, Public, HideBySig
     repartir(): PrivateScope, Public, HideBySig
-    cogercarta(BufferedGraphics): PrivateScope, Public, HideBySig
+    cogercarta(): PrivateScope, Public, HideBySig
+    devolvercarta(): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
 Class Project15.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form

@@ -11,9 +11,14 @@ private:
 	
 	array<CCarta^> ^cartas;
 	int in;
+	bool mazodibujado;
+	int cs;
+	int posAX;
+	int posAY;
 public:
 	CMazo() {
 		in = 50;
+		mazodibujado = false;
 		cartas = gcnew array<CCarta^>(55);
 	//Rellenando cartas azules	
 	for (int i = 0; i <= 12; i++) {
@@ -96,14 +101,21 @@ public:
 	}
 	void shufle() {	}
 	void dibujarmazo(BufferedGraphics ^buffer) {
-		
-		for (int i = 0; i <=54; i++) {
-			cartas[i]->setPosX(in);
-			cartas[i]->setPosY(in);
-			cartas[i]->dibujar(buffer);
-			in++;
+		if (mazodibujado == false) {
+			for (int i = 0; i <= 54; i++) {
+				cartas[i]->setPosX(in);
+				cartas[i]->setPosY(in);
+				cartas[i]->dibujar(buffer);
+				in++;
+			}
+			in = 50;
+			mazodibujado = true;
 		}
-		in = 50;
+		else {
+			for (int i = 0; i <= 54; i++) {
+				cartas[i]->dibujar(buffer);
+			}
+		}
 	}
 	~CMazo() {
 		}
@@ -112,13 +124,24 @@ public:
 	//int getCantidad() { return this->cantidad; }
 	
 	void repartir() {};
-	void cogercarta(BufferedGraphics ^buffer) {
+	void cogercarta() {
 		int n;
+		n = 300;
 		
-		do {
-			cartas[4]->setPosX(in + n);
-			cartas[4]->dibujar(buffer);
-			n++;
-		} while (n < 300);
+		Random r;
+		cs = r.Next(0, 54);
+		posAX=cartas[cs]->getPosX();
+		posAY = cartas[cs]->getPosY();
+	cartas[cs]->setPosX(in + n);
+	cartas[cs]->setPosY(in);
+	
+			
+	
+		
+	}
+	void devolvercarta() {
+		
+		cartas[cs]->setPosX(posAX);
+		cartas[cs]->setPosY(posAY);
 	};
 };
